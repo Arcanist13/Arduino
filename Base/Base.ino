@@ -23,8 +23,8 @@ void setup()  {
   rtc.readDate(&d);
   int hour = t.hour
   int minute = t.minute
-  int secon = t.second
-  int day = t.day
+  int second = t.second
+  int day = RTC::dayOfWeek(&d)
   
   //Text-to-speech initialisation
   :N0      //Select text-to-speech voice style
@@ -45,10 +45,39 @@ void loop(){
 }
 
 void wakeUp(){
-  //Alarm followed by voice output
-  //Possible inclusion of temperature
-  
+  //Alarm
+  alarm();
+  //Voice
+  :sGood morning sir, how did you sleep last night?
+  time();
+  :sYour schedule today is as follows.
   checkEvents();
+  //Possible inclusion of temperature
+  cehckTemp();
+}
+
+void time(){
+  days[] = {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday};
+  if(hour < 12){
+    :sThe time is currently t.hour t.minute a m. It is days[RTC::dayOfWeek(&d)], t.day dash t.month dash t.year.
+  }
+  else{
+    :sThe time is currently t.hour t.minute p m. It is days[RTC::dayOfWeek(&d)], t.day dash t.month dash t.year.
+  }
+}
+
+void alarm(){
+  
+}
+
+void checkTemp(){
+  :sThe temperature outside is currently ... degrees.
+  if(temp < 15){
+    :sIt might be a good idea to take a jumper sir, it is a bit chilly.
+  }
+  else{
+    :sIt should be a nice day outside, have a nice day sir.
+  }
 }
 
 void checkEvents(){
@@ -58,17 +87,17 @@ void checkEvents(){
 
 void diagnostics(){
   //system check
-  Serial.print("Checking text-to-speech shield...")
-  Serial.print("Current settings: ")
+  Serial.print("Checking text-to-speech shield...");
+  Serial.print("Current settings: ");
   :C
   delay(4000);
   :D0
   delay(2000);
-  for(int i=0, i < 10, i++){
+  for(int i=0, i<10, i++){
     :Ni
     :SVoice test.
     delay(500);
   }
   delay(2000);
-  Serial.print("Checking clock")
+  Serial.print("Checking clock");
 }
