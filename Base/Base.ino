@@ -8,11 +8,15 @@ DS3232RTC rtc(i2c);
 const int ledPin = 13;
 const int buttonPin = 12;
 
-//Initialise arrays (quick-access)
-int birthdays[2][2]={{11,05},{12,05}};
-int wakeAlm[]={7, 0, 0};
+//Initialise arrays
+const int birthdays[][2]={
+  {18,01},{13,04}};
+const int wakeAlm[]={
+  7, 0, 0};
+const char event[][3]={
+  {25,12, "description"}};
 
-void setup()  {
+void setup(){
   Serial.begin(9600);
   
   pinMode(ledPin, OUTPUT);
@@ -57,7 +61,7 @@ void wakeUp(){
 }
 
 void time(){
-  days[] = {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday};
+  days[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
   if(hour < 12){
     :sThe time is currently t.hour t.minute a m. It is days[RTC::dayOfWeek(&d)], t.day dash t.month dash t.year.
   }
